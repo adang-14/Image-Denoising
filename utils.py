@@ -7,13 +7,6 @@ from matplotlib import pyplot as plt    #Plot images and metrics info
 from tqdm import tqdm                   #Status bar for long-processing items
 import skimage
 
-#Non-Local Means Denoising ------------------------------------------------------------------------
-def NLM(image):
-    #Wrapper function on openCV NLM
-    #TODO - tune parameters/config
-    return cv.fastNlMeansDenoisingColored(image,None,35,35,7,21)
-
-
 #Image Pre/Post-Processing ------------------------------------------------------------------------
 def get_image(filename):
     #Wrapper function on cv.imread. Automatically converts from BGR to RGB
@@ -69,20 +62,24 @@ def stitch_patches(patches,n=8):
     return image
 
 #Performance Metrics ------------------------------------------------------------------------------
-#TODO - create performance metrics functions to be used on denoising analysis
+
 def MSE(A,B):
-    #TODO - mse implementation. Can reuse tf.keras.losses.MeanSquaredError() ?
-    return 0
+    A = cv.cvtColor(A, cv.COLOR_RGB2GRAY)
+        B = cv.cvtColor(B, cv.COLOR_RGB2GRAY)
+        h, w = A.shape
+        diff = cv.subtract(A, B)
+        err = np.sum(diff**2)
+        mse = err/(float(h*w))
+        return mse
 
 def PNSR(A,B):
-    #TODO - psnr (peak signal to noise ratio) implementation
-    # tf.image.psnr(a, b, max_val, name=None)
-    return 0
+    # psnr (peak signal to noise ratio) implementation
+    return float(tf.image.psnr(noisy, ground, 225, name=None))
 
 def SSIM(A,B):
-    #TODO - ssim (structural similarity index) implementation
-    #tf.image.ssim(
-    return 0
+    # ssim (structural similarity index) implementation
+    return float(tf.image.ssim(A, B, max_val=255, filter_size=11,
+                          filter_sigma=1.5, k1=0.01, k2=0.03))
 
 #Display Functions --------------------------------------------------------------------------------
 def display_image(image):
@@ -104,31 +101,3 @@ def display_comparison(images):
         ax[i].get_yaxis().set_visible(False)
     plt.show()
     return
-
-
-def mse(imageA, imageB):
-    # the 'Mean Squared Error' between the two images is the
-    # sum of the squared difference between the two images;
-    # NOTE: the two images must have the same dimension
-    err = np.sum((imageA.astype("float") - imageB.astype("float")) ** 2)
-    err /= float(imageA.shape[0] * imageA.shape[1])
-
-    # return the MSE, the lower the error, the more "similar"
-    # the two images are
-    return err
-
-def PSNR(original, compressed):
-    mse = np.mean((original - compressed) ** 2)
-    if(mse == 0):  # MSE is zero means no noise is present in the signal .
-                  # Therefore PSNR have no importance.
-        return 100
-    max_pixel = 255.0
-    psnr = 20 * log10(max_pixel / sqrt(mse))
-    return psnr
-
-def mse(img1, img2):
-    h, w = img1.shape
-    diff = cv2.subtract(img1, img2)
-    err = np.sum(diff**2)
-    mse = err/(float(h*w))
-    return mse

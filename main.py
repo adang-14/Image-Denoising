@@ -17,6 +17,7 @@ import tensorflow as tf                 #Tensorflow AI library
 from matplotlib import pyplot as plt    #Plot images and metrics info
 from tqdm import tqdm                   #Status bar for long-processing items
 import skimage
+from utils import *
 
 #Constants ==============================================================================================
 #Image folder structure ---------------------------------------------------------------------------
@@ -26,10 +27,13 @@ VALIDATE_ROOT = 'images/validate/'
 GROUND = 'ground/'
 NOISY = 'noisy_gaussian/'
 
+#Non-Local Means Denoising ------------------------------------------------------------------------
+def NLM(image):
+    #Wrapper function on openCV NLM
+    return cv.fastNlMeansDenoisingColored(image,None,35,35,7,21)
 
 #CNN Autoencoder ----------------------------------------------------------------------------------
 class Autoencoder:
-    #TODO - Model structure, hyper-parameters, and training parameters need to be reviewed/tuned
     #       initial set-up as proof-of-concept/image testing. Has not been optimized
     def __init__(self):
         #Constructor - Initialize NN structure and compile TensorFlow model. Attempts
@@ -144,7 +148,7 @@ def main():
     file = rd.choice(files)
     noisy = get_image(TEST_ROOT+NOISY+file)
     ground = get_image(TEST_ROOT+GROUND+file.replace("_noise.jpg", ".jpg"))
-
+    
     #NLM filtering
     filtered_nlm = NLM(noisy)
 
