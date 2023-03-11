@@ -4,9 +4,7 @@ Description:    Denoising Autoencoder Analysis
 Purpose:        Analysis of image denoising via autoencoder neural-net machine learning. Below content
                 contains autoencoder implementation, competing methods (NLM), and performance
 Python:         Version 3.9
-Authors:        Andy Dang, Ben Austin, Killian Hanson, Manish Yadav, Tayte Waterman
-Course:         CS541/CS441, Winter
-Assignment:     Group Project - Autoencoder Denoising
+Authors:        Andy Dang, Tayte Waterman
 Date:           ---
 =========================================================================================================
 '''
