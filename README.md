@@ -1,3 +1,5 @@
+Familiarized with AE. Compared AE & KLM performance. Implemented in Python 3.9.
+
 # Image-Denoising
 
 Create environment:
