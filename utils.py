@@ -65,12 +65,12 @@ def stitch_patches(patches,n=8):
 
 def MSE(A,B):
     A = cv.cvtColor(A, cv.COLOR_RGB2GRAY)
-        B = cv.cvtColor(B, cv.COLOR_RGB2GRAY)
-        h, w = A.shape
-        diff = cv.subtract(A, B)
-        err = np.sum(diff**2)
-        mse = err/(float(h*w))
-        return mse
+    B = cv.cvtColor(B, cv.COLOR_RGB2GRAY)
+    h, w = A.shape
+    diff = cv.subtract(A, B)
+    err = np.sum(diff**2)
+    mse = err/(float(h*w))
+    return mse
 
 def PNSR(A,B):
     # psnr (peak signal to noise ratio) implementation
