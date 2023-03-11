@@ -1,4 +1,4 @@
-Project to familiarize with AE. Compared AE & KLM performance. Implemented in Python 3.9.
+Project to familiarize with AE. Compared AE & KLM performance for denoising RGB images. Noisy images were created by adding Gassian noise $X ~ N(0,0.01)$ Implemented in Python 3.9.
 
 # Image-Denoising
 
