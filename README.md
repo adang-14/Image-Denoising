@@ -1,4 +1,4 @@
-Project to familiarize with AE. Compared AE & KLM performance for denoising RGB images. Noisy images were created by adding Gassian noise $X \~ N(0,0.01)$ to ground truth images.
+Project to familiarize with AE. Compared AE & KLM performance for denoising RGB images. Noisy images were created by adding Gassian noise $X \\~ N(0,0.01)$ to ground truth images.
 
 Implemented with Python 3.9.
 
