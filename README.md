@@ -1,4 +1,4 @@
-Familiarized with AE. Compared AE & KLM performance. Implemented in Python 3.9.
+Project to familiarize with AE. Compared AE & KLM performance. Implemented in Python 3.9.
 
 # Image-Denoising
 
